@@ -23,6 +23,12 @@
         <activity
             android:name=".loop.LoopActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".simple.SimpleActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".simple.Simple2Activity"
+            android:screenOrientation="portrait" />
 
     </application>
 

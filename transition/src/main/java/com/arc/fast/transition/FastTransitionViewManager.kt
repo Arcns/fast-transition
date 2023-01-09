@@ -80,10 +80,10 @@ open class FastTransitionViewManager {
         ).toBundle()
     }
 
-    open fun startActivity(
+    open fun <T : Activity> startActivity(
         activity: Activity,
-        targetActivityCLass: Class<Activity>,
-        targetDataID: String?,
+        targetActivityCLass: Class<T>,
+        targetDataID: String?= null,
         applyIntent: ((intent: Intent) -> Unit)? = null
     ) {
         startActivity(

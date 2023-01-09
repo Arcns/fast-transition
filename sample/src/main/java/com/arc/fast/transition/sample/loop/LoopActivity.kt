@@ -56,6 +56,7 @@ class LoopActivity : AppCompatActivity() {
             intent.getParcelableExtra("headerData")
         }
     }
+    // 获取目标页转场管理器
     private val transitionTargetManager by lazy {
         FastTransitionTargetManager.getManager(this)
     }
