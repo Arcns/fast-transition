@@ -1,0 +1,45 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'maven-publish'
+    id 'kotlin-parcelize'
+}
+android {
+    namespace 'com.arc.fast.transition'
+    compileSdk versions.compile_sdk
+    defaultConfig {
+        minSdk versions.min_sdk
+        targetSdk versions.compile_sdk
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_11
+    }
+}
+dependencies {
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'com.google.android.material:material:1.7.0'
+    // 仅编译，若项目需要使用到，需要在项目中自行引用
+    compileOnly 'com.gitee.arcns.arc-fast:view:1.16.0'
+    // 解除反射限制
+    implementation 'com.github.tiann:FreeReflection:3.1.0'
+}
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+            }
+        }
+    }
+}

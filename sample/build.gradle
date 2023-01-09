@@ -1,0 +1,79 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'kotlin-parcelize'
+}
+android {
+    compileSdk versions.compile_sdk
+    defaultConfig {
+        applicationId "com.arc.fast.transition.sample"
+        minSdk versions.min_sdk
+        targetSdk versions.compile_sdk
+        versionCode versions.publish_code
+        versionName versions.publish_name
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+//    signingConfigs {
+//        release {
+//            keyAlias 'sample'
+//            keyPassword 'sample'
+//            storeFile file('../sample.jks')
+//            storePassword 'sample'
+//        }
+//    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.release
+        }
+        debug {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.release
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_11
+    }
+    // dataBinding
+    buildFeatures {
+        dataBinding true
+    }
+    namespace 'com.arc.fast.transition.sample'
+
+    // 配置打包APK的名称
+//    android.applicationVariants.all {
+//        variant ->
+//            def name = ""
+//            if (variant.buildType.name.contains('release')) {
+//                name = "release"
+//            } else {
+//                name = "debug"
+//            }
+//            variant.outputs.all {
+//                outputFileName = "${defaultConfig.applicationId}_${name}_${variant.versionName}(${variant.versionCode}).apk"
+//            }
+//    }
+}
+dependencies {
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    //
+    implementation 'com.github.bumptech.glide:glide:4.13.2'
+    //
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.7'
+    // core
+    implementation 'com.gitee.arcns.arc-fast:immersive:1.12.0'
+    implementation project(path: ':transition')
+    implementation 'com.gitee.arcns.arc-fast:core:1.16.0'
+    implementation 'com.gitee.arcns.arc-fast:view:1.16.0'
+}
