@@ -1,3 +1,3 @@
-rootProject.name = "arc-fast-transition"
+rootProject.name = "fast-transition"
 include ':transition'
 include ':sample'
