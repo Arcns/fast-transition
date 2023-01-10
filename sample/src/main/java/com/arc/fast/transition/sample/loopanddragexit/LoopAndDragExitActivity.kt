@@ -1,4 +1,4 @@
-package com.arc.fast.transition.sample.loop
+package com.arc.fast.transition.sample.loopanddragexit
 
 import android.content.Context
 import android.content.Intent
@@ -24,23 +24,25 @@ import com.arc.fast.transition.item.toggleimage.FastToggleImageViewValue
 import com.arc.fast.transition.sample.R
 import com.arc.fast.transition.sample.TestData
 import com.arc.fast.transition.sample.TestItem
+import com.arc.fast.transition.sample.databinding.ActivityLoopAndDragExitBinding
 import com.arc.fast.transition.sample.databinding.ActivityLoopBinding
 import com.arc.fast.transition.sample.databinding.ItemLoopBinding
 import com.arc.fast.transition.sample.databinding.ItemLoopHeaderBinding
 import com.arc.fast.transition.sample.extension.applyFullScreen
 import com.arc.fast.transition.sample.extension.setLightSystemBar
+import com.arc.fast.transition.sample.loop.LoopAdapter
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
-class LoopActivity : AppCompatActivity() {
+class LoopAndDragExitActivity : AppCompatActivity() {
 
     companion object {
         fun newIntent(
             context: Context,
             headerData: TestItem? = null
         ): Intent {
-            return Intent(context, LoopActivity::class.java).apply {
+            return Intent(context, LoopAndDragExitActivity::class.java).apply {
                 putExtra("headerData", headerData)
             }
         }
@@ -53,7 +55,7 @@ class LoopActivity : AppCompatActivity() {
         }
     }
 
-    private lateinit var binding: ActivityLoopBinding
+    private lateinit var binding: ActivityLoopAndDragExitBinding
     private val headerData: TestItem? by lazy {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getParcelableExtra("headerData", TestItem::class.java)
@@ -72,9 +74,9 @@ class LoopActivity : AppCompatActivity() {
         applyFullScreen()
         setLightSystemBar(true)
         EventBus.getDefault().register(this)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_loop)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_loop_and_drag_exit)
         binding.toolbar.apply {
-            this.navigationIcon = DrawerArrowDrawable(this@LoopActivity).apply {
+            this.navigationIcon = DrawerArrowDrawable(this@LoopAndDragExitActivity).apply {
                 progress = 1f
             }
             this.setNavigationOnClickListener {
@@ -100,6 +102,8 @@ class LoopActivity : AppCompatActivity() {
         binding.rv.doOnPreDraw {
             transitionTargetManager?.startTransitionEnter()
         }
+        // 启用拖拽退出
+        binding.dragExitLayout.enableDragExit(bindExitActivity = this)
     }
 
     private fun onHeaderLoadCompleted(itemBinding: ItemLoopHeaderBinding) {
@@ -134,8 +138,8 @@ class LoopActivity : AppCompatActivity() {
         )
         // 2、通过startActivity启动目标页面
         fastTransitionViewManager.startActivity(
-            activity = this@LoopActivity,
-            targetIntent = LoopActivity.newIntent(this@LoopActivity, item),
+            activity = this@LoopAndDragExitActivity,
+            targetIntent = LoopAndDragExitActivity.newIntent(this@LoopAndDragExitActivity, item),
             item.id
         )
     }

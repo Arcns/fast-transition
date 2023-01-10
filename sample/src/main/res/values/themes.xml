@@ -1,5 +1,12 @@
 <resources>
 
+    <style name="TransitionTheme" parent="@style/AppTheme">
+        <item name="android:windowBackground">@color/black_30</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowActivityTransitions">true</item>
+    </style>
+
     <style name="AppTheme" parent="Theme.Material3.Light.NoActionBar">
         <item name="android:windowBackground">@color/bg_1</item>
         <item name="android:statusBarColor">@android:color/transparent</item>

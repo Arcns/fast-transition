@@ -28,24 +28,26 @@
             android:id="@+id/ivImage"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="36dp"
             android:scaleType="centerCrop"
             android:src="@mipmap/s1"
             app:layout_constraintDimensionRatio="w,1:1"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:rounded_radius="36dp" />
 
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="16dp"
-            android:textColor="@color/black"
+            android:gravity="center_horizontal"
+            android:padding="36dp"
+            android:text="测试标题测试标题测试标题测试标题"
+            android:textColor="@android:color/black"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/ivImage"
-            android:text="测试标题测试标题测试标题测试标题" />
+            app:layout_constraintTop_toBottomOf="@id/ivImage" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

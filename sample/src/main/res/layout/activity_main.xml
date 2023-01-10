@@ -44,6 +44,12 @@
                 android:layout_height="wrap_content"
                 android:text="Loop Transition" />
 
+            <Button
+                android:id="@+id/btnLoopAndDragExit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Loop And Drag Exit" />
+
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

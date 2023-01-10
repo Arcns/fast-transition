@@ -24,15 +24,27 @@
 
         <TextView
             android:id="@+id/tvTitle"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
             android:padding="8dp"
             android:textColor="@android:color/holo_red_dark"
             android:textSize="12sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/ivLike"
             app:layout_constraintTop_toBottomOf="@id/ivImage"
             tools:text="标题标题标题标题标题标题标题标题标题标题标题标题标题" />
+
+        <ImageView
+            android:id="@+id/ivLike"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="8dp"
+            android:src="@drawable/ic_like"
+            app:layout_constraintBottom_toBottomOf="@id/tvTitle"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvTitle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

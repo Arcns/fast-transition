@@ -33,17 +33,11 @@ class Simple2Activity : AppCompatActivity() {
                 onBackPressedDispatcher.onBackPressed()
             }
         }
-
         // 在目标页设置需要对应参与转场的共享元素
         transitionTargetManager?.setTransitionView(TestData.KEY_IMAGE, binding.ivImage)
         transitionTargetManager?.setTransitionView(TestData.KEY_TITLE, binding.tvTitle)
         // 在目标页应用转场动画
-        transitionTargetManager?.applyTransitionEnterAndReturnConfig(
-//            postponeEnterTransition = true // 这里先暂停转场，等待页面准备好后再调用startTransitionEnter启动动画
-        )
-//        binding.rv.doOnPreDraw {
-//            transitionTargetManager?.startTransitionEnter()
-//        }
+        transitionTargetManager?.applyTransitionEnterAndReturnConfig()
     }
 
 }

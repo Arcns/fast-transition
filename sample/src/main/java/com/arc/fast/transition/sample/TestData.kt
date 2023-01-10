@@ -7,11 +7,12 @@ import kotlinx.parcelize.Parcelize
 import java.util.*
 
 @Parcelize
-class TestItem(
+data class TestItem(
     val id: String,
     val image: Int,
     val title: String,
-    val content: String
+    val content: String,
+    var isLike: Boolean = false
 ) : MultiItemEntity, Parcelable {
     @IgnoredOnParcel
     override var itemType: Int = 0
@@ -20,6 +21,7 @@ class TestItem(
 object TestData {
     const val KEY_IMAGE = "KEY_IMAGE"
     const val KEY_TITLE = "KEY_TITLe"
+    const val KEY_LIKE = "KEY_LIKE"
     val simpleData by lazy {
         val data = arrayListOf<TestItem>()
         for (i in 1..5) {

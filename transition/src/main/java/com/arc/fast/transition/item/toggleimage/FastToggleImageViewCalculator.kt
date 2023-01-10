@@ -19,6 +19,7 @@ class FastToggleImageViewCalculator(
         if (progress >= 0.5f) last else first
 
     override fun setView(view: ImageView, progress: Float, value: FastToggleImageViewValue) {
+        view.isSelected = first.isSelect ?: return
         view.setImageResource(value.getIcon(first.isSelect) ?: return)
     }
 }

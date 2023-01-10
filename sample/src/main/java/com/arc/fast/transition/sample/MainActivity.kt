@@ -8,6 +8,7 @@ import com.arc.fast.transition.sample.databinding.ActivityMainBinding
 import com.arc.fast.transition.sample.extension.applyFullScreen
 import com.arc.fast.transition.sample.extension.setLightSystemBar
 import com.arc.fast.transition.sample.loop.LoopActivity
+import com.arc.fast.transition.sample.loopanddragexit.LoopAndDragExitActivity
 import com.arc.fast.transition.sample.simple.SimpleActivity
 
 class MainActivity : AppCompatActivity() {
@@ -32,6 +33,9 @@ class MainActivity : AppCompatActivity() {
         }
         binding.btnLoop.setOnClickListener {
             LoopActivity.start(this)
+        }
+        binding.btnLoopAndDragExit.setOnClickListener {
+            LoopAndDragExitActivity.start(this)
         }
     }
 

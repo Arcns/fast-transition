@@ -1,6 +1,7 @@
 package com.arc.fast.transition.item.textview
 
 import android.graphics.Typeface
+import android.util.Log
 import android.widget.TextView
 import com.arc.fast.transition.item.FastBaseCalculator
 
@@ -77,6 +78,7 @@ class FastTextViewCalculator(
         view.setLineSpacing(
             value.lineSpacingExtra, 1f
         )
+        Log.e("aaaaa", "aaaaa:" + value.lineSpacingExtra)
         view.setPadding(
             value.paddingLeft.toInt(),
             value.paddingTop.toInt(),

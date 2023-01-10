@@ -68,12 +68,12 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     //
-    implementation 'com.github.bumptech.glide:glide:4.13.2'
-    //
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.7'
-    // core
-    implementation 'com.gitee.arcns.arc-fast:immersive:1.12.0'
+    // transition
     implementation project(path: ':transition')
+    // other
+    implementation "org.greenrobot:eventbus:3.3.1"
     implementation 'com.gitee.arcns.arc-fast:core:1.16.0'
+    implementation 'com.gitee.arcns.arc-fast:immersive:1.16.0'
     implementation 'com.gitee.arcns.arc-fast:view:1.16.0'
 }

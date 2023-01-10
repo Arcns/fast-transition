@@ -9,6 +9,8 @@ import androidx.databinding.DataBindingUtil
 import com.arc.fast.core.extensions.dp
 import com.arc.fast.transition.FastRoundedItem
 import com.arc.fast.transition.FastTransitionViewManager
+import com.arc.fast.transition.item.bgfade.FastBackgroundFadeItem
+import com.arc.fast.transition.item.disposable.FastDisposableFastTextViewItem
 import com.arc.fast.transition.item.rounded.FastRoundedValue
 import com.arc.fast.transition.item.system.FastSystemTransitionItem
 import com.arc.fast.transition.item.system.FastSystemTransitionType
@@ -56,7 +58,7 @@ class SimpleActivity : AppCompatActivity() {
             fastTransitionViewManager.addView(
                 TestData.KEY_TITLE,
                 binding.tvTitle,
-                FastTextViewItem(FastTextViewValue(binding.tvTitle))//textview切换动画
+                FastTextViewItem(FastTextViewValue(binding.tvTitle)),//textview切换动画
             )
             // 2、通过startActivity启动目标页面
             fastTransitionViewManager.startActivity(
