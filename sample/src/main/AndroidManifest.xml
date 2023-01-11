@@ -21,6 +21,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".loop.LoopActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".loopanddragexit.LoopAndDragExitActivity"
             android:screenOrientation="portrait"
             android:theme="@style/TransitionTheme" />
