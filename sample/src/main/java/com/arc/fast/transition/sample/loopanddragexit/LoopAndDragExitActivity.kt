@@ -9,7 +9,6 @@ import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
 import androidx.core.view.doOnPreDraw
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
 import com.arc.fast.core.extensions.dp
 import com.arc.fast.transition.FastRoundedItem
 import com.arc.fast.transition.FastTransitionTargetManager
@@ -25,7 +24,6 @@ import com.arc.fast.transition.sample.R
 import com.arc.fast.transition.sample.TestData
 import com.arc.fast.transition.sample.TestItem
 import com.arc.fast.transition.sample.databinding.ActivityLoopAndDragExitBinding
-import com.arc.fast.transition.sample.databinding.ActivityLoopBinding
 import com.arc.fast.transition.sample.databinding.ItemLoopBinding
 import com.arc.fast.transition.sample.databinding.ItemLoopHeaderBinding
 import com.arc.fast.transition.sample.extension.applyFullScreen
@@ -83,18 +81,8 @@ class LoopAndDragExitActivity : AppCompatActivity() {
                 onBackPressedDispatcher.onBackPressed()
             }
         }
-        val data = arrayListOf<TestItem>()
-        if (headerData != null) {
-            data.add(headerData!!.apply { itemType = 1 })
-        }
-        data.addAll(TestData.simpleData)
-        binding.rv.layoutManager = GridLayoutManager(this, 2).apply {
-            spanSizeLookup = object : SpanSizeLookup() {
-                override fun getSpanSize(position: Int): Int =
-                    if (data.getOrNull(position)?.itemType == 1) 2 else 1
-            }
-        }
-        binding.rv.adapter = LoopAdapter(data, this::onHeaderLoadCompleted, this::onItemClick)
+        // 加载测试数据
+        loadTestData()
         // 在目标页应用转场动画
         transitionTargetManager?.applyTransitionEnterAndReturnConfig(
             postponeEnterTransition = true // 这里先暂停转场，等待页面准备好后再调用startTransitionEnter启动动画
@@ -159,8 +147,26 @@ class LoopAndDragExitActivity : AppCompatActivity() {
                 super.finishAfterTransition()
             }
         } else {
-            super.finishAfterTransition()
+            // ps：如果当前页退出时没有共享元素动画，那么需要调用finish，以修复api32及以上，当前页在启动转场动画后，退出时会出现共享元素残影的问题
+            finish()
         }
+    }
+
+
+    // 加载测试数据
+    private fun loadTestData() {
+        val data = arrayListOf<TestItem>()
+        if (headerData != null) {
+            data.add(headerData!!.apply { itemType = 1 })
+        }
+        data.addAll(TestData.simpleData)
+        binding.rv.layoutManager = GridLayoutManager(this, 2).apply {
+            spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                override fun getSpanSize(position: Int): Int =
+                    if (data.getOrNull(position)?.itemType == 1) 2 else 1
+            }
+        }
+        binding.rv.adapter = LoopAdapter(data, this::onHeaderLoadCompleted, this::onItemClick)
     }
 
     // 更新事件

@@ -86,3 +86,5 @@ class LoopAdapter(
         super.setDiffNewData(diffResult, list)
     }
 }
+
+//class LoopImageAdapter extends BannerAdapter<DataBean, ImageAdapter.BannerViewHolder> {

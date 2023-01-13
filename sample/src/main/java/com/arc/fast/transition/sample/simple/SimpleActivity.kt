@@ -9,8 +9,6 @@ import androidx.databinding.DataBindingUtil
 import com.arc.fast.core.extensions.dp
 import com.arc.fast.transition.FastRoundedItem
 import com.arc.fast.transition.FastTransitionViewManager
-import com.arc.fast.transition.item.bgfade.FastBackgroundFadeItem
-import com.arc.fast.transition.item.disposable.FastDisposableFastTextViewItem
 import com.arc.fast.transition.item.rounded.FastRoundedValue
 import com.arc.fast.transition.item.system.FastSystemTransitionItem
 import com.arc.fast.transition.item.system.FastSystemTransitionType
@@ -42,6 +40,7 @@ class SimpleActivity : AppCompatActivity() {
                 progress = 1f
             }
             this.setNavigationOnClickListener {
+//                finishAfterTransition()
                 onBackPressedDispatcher.onBackPressed()
             }
         }
@@ -68,4 +67,8 @@ class SimpleActivity : AppCompatActivity() {
         }
     }
 
+    override fun finishAfterTransition() {
+        // ps：如果当前页退出时没有共享元素动画，那么需要调用finish，以修复api32及以上，当前页在启动转场动画后，退出时会出现共享元素残影的问题
+        finish()
+    }
 }

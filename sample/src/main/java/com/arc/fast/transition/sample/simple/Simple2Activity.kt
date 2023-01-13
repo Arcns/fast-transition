@@ -40,8 +40,8 @@ class Simple2Activity : AppCompatActivity() {
         transitionTargetManager?.applyTransitionEnterAndReturnConfig()
     }
 
-    override fun onStop() {
-        transitionTargetManager?.onStop()
-        super.onStop()
-    }
+//    override fun onStop() {
+//        transitionTargetManager?.onStop()
+//        super.onStop()
+//    }
 }

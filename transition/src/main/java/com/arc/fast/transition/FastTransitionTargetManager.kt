@@ -54,7 +54,8 @@ class FastTransitionTargetManager(
             }.addTransition(ChangeBounds()).apply {
                 configs.forEach {
                     addTransition(
-                        it.getTransition(true, pageCurrentScale).setDuration(duration - 50)
+                        it.getTransition(true, pageCurrentScale)?.setDuration(duration - 50)
+                            ?: return@forEach
                     )
                 }
             }
@@ -65,7 +66,8 @@ class FastTransitionTargetManager(
             }.addTransition(ChangeBounds()).apply {
                 configs.forEach {
                     addTransition(
-                        it.getTransition(false, pageCurrentScale).setDuration(duration - 50)
+                        it.getTransition(false, pageCurrentScale)?.setDuration(duration - 50)
+                            ?: return@forEach
                     )
                 }
             }

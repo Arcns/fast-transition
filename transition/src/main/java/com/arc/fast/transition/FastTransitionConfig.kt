@@ -55,8 +55,8 @@ class FastTransitionConfig(
     fun getTransition(
         isEnter: Boolean,
         pageCurrentScale: (() -> Float)? = null
-    ): Transition {
-        return TransitionSet().apply {
+    ): Transition? {
+        return if (items.isNotEmpty()) TransitionSet().apply {
             items.forEach {
                 val transition = it.getItemTransition(isEnter, pageCurrentScale)
                 if (transition != null) {
@@ -64,8 +64,9 @@ class FastTransitionConfig(
                 }
             }
             addTransition(FastTransition(this@FastTransitionConfig, isEnter, pageCurrentScale))
-        }.addTarget(transitionName)
+        }.addTarget(transitionName) else null
     }
 }
 
-const val DEFAULT_FAST_TRANSITION_CONFIGS_INTENT_NAME = "DEFAULT_FAST_TRANSITION_CONFIGS_INTENT_NAME"
+const val DEFAULT_FAST_TRANSITION_CONFIGS_INTENT_NAME =
+    "DEFAULT_FAST_TRANSITION_CONFIGS_INTENT_NAME"
