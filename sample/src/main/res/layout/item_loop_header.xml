@@ -11,13 +11,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.arc.fast.view.rounded.RoundedImageView
-            android:id="@+id/ivImage"
+        <com.arc.fast.view.FastBannerNestedScrollCompat
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:scaleType="centerCrop"
             app:layout_constraintDimensionRatio="w,1:1"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.youth.banner.Banner
+                android:id="@+id/banner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </com.arc.fast.view.FastBannerNestedScrollCompat>
 
         <TextView
             android:id="@+id/tvTitle"
@@ -30,7 +34,7 @@
             app:layout_constrainedWidth="true"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/ivLike"
-            app:layout_constraintTop_toBottomOf="@id/ivImage"
+            app:layout_constraintTop_toBottomOf="@id/banner"
             tools:text="标题标题标题标题标题标题标题标题标题标题标题标题标题" />
 
 

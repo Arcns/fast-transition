@@ -96,7 +96,7 @@ class LoopAndDragExitActivity : AppCompatActivity() {
 
     private fun onHeaderLoadCompleted(itemBinding: ItemLoopHeaderBinding) {
         // 在目标页设置需要对应参与转场的共享元素
-        transitionTargetManager?.setTransitionView(TestData.KEY_IMAGE, itemBinding.ivImage)
+//        transitionTargetManager?.setTransitionView(TestData.KEY_IMAGE, itemBinding.ivImage)
         transitionTargetManager?.setTransitionView(TestData.KEY_TITLE, itemBinding.tvTitle)
         transitionTargetManager?.setTransitionView(TestData.KEY_LIKE, itemBinding.ivLike)
     }

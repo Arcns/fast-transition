@@ -1,15 +1,19 @@
 package com.arc.fast.transition.sample.loop
 
-import android.annotation.SuppressLint
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import com.arc.fast.transition.item.toggleimage.fastToggleImageviewSelectIcon
 import com.arc.fast.transition.sample.R
 import com.arc.fast.transition.sample.TestItem
 import com.arc.fast.transition.sample.databinding.ItemLoopBinding
 import com.arc.fast.transition.sample.databinding.ItemLoopHeaderBinding
+import com.arc.fast.transition.sample.databinding.ItemLoopHeaderImageBinding
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
+import com.youth.banner.adapter.BannerAdapter
 import org.greenrobot.eventbus.EventBus
 
 class LoopAdapter(
@@ -62,7 +66,19 @@ class LoopAdapter(
             }
         } else if (item.itemType == 1) {
             DataBindingUtil.getBinding<ItemLoopHeaderBinding>(holder.itemView)?.apply {
-                ivImage.setImageResource(item.image)
+                if (banner.adapter == null) {
+                    banner.setAdapter(
+                        LoopImageAdapter(
+                            listOf(
+                                item.image,
+                                R.mipmap.s1,
+                                R.mipmap.s2,
+                                R.mipmap.s3,
+                                R.mipmap.s4,
+                            )
+                        )
+                    )
+                }
                 tvTitle.text = item.title
                 tvContent.text = item.content
                 if (!isHeaderLoadCompleted) {
@@ -87,4 +103,25 @@ class LoopAdapter(
     }
 }
 
-//class LoopImageAdapter extends BannerAdapter<DataBean, ImageAdapter.BannerViewHolder> {
+class LoopImageAdapter(data: List<Int>) : BannerAdapter<Int, LoopImageViewHolder>(data) {
+    override fun onCreateHolder(parent: ViewGroup, viewType: Int): LoopImageViewHolder {
+        return LoopImageViewHolder(ItemLoopHeaderImageBinding.inflate(LayoutInflater.from(parent.context)))
+    }
+
+    override fun onBindView(
+        holder: LoopImageViewHolder,
+        data: Int,
+        position: Int,
+        size: Int
+    ) {
+        holder.convert(data)
+    }
+
+}
+
+class LoopImageViewHolder(val binding: ItemLoopHeaderImageBinding) :
+    RecyclerView.ViewHolder(binding.root) {
+    fun convert(item: Int) {
+        binding.ivImage.setImageResource(item)
+    }
+}
