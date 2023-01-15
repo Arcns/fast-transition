@@ -1,8 +1,11 @@
 package com.arc.fast.transition.sample.loop
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.arc.fast.transition.item.toggleimage.fastToggleImageviewSelectIcon
@@ -14,11 +17,13 @@ import com.arc.fast.transition.sample.databinding.ItemLoopHeaderImageBinding
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.youth.banner.adapter.BannerAdapter
+import com.youth.banner.indicator.CircleIndicator
 import org.greenrobot.eventbus.EventBus
 
 class LoopAdapter(
+    val lifecycleOwner: LifecycleOwner,
     data: MutableList<TestItem>,
-    val onHeaderLoadCompleted: (itemBinding: ItemLoopHeaderBinding) -> Unit,
+    val onHeaderLoadCompleted: (itemBinding: ItemLoopHeaderBinding, imageBinding: ItemLoopHeaderImageBinding) -> Unit,
     val onItemClick: (itemBinding: ItemLoopBinding, item: TestItem) -> Unit
 ) :
     BaseMultiItemQuickAdapter<TestItem, BaseViewHolder>(data) {
@@ -67,6 +72,8 @@ class LoopAdapter(
         } else if (item.itemType == 1) {
             DataBindingUtil.getBinding<ItemLoopHeaderBinding>(holder.itemView)?.apply {
                 if (banner.adapter == null) {
+                    banner.addBannerLifecycleObserver(this@LoopAdapter.lifecycleOwner)
+                    banner.indicator = CircleIndicator(context)
                     banner.setAdapter(
                         LoopImageAdapter(
                             listOf(
@@ -76,15 +83,16 @@ class LoopAdapter(
                                 R.mipmap.s3,
                                 R.mipmap.s4,
                             )
-                        )
+                        ) {
+                            if (!isHeaderLoadCompleted) {
+                                isHeaderLoadCompleted = true
+                                onHeaderLoadCompleted.invoke(this, it)
+                            }
+                        }
                     )
                 }
                 tvTitle.text = item.title
                 tvContent.text = item.content
-                if (!isHeaderLoadCompleted) {
-                    isHeaderLoadCompleted = true
-                    onHeaderLoadCompleted.invoke(this)
-                }
                 ivLike.isSelected = item.isLike
                 ivLike.fastToggleImageviewSelectIcon = R.drawable.ic_like2
                 ivLike.setOnClickListener {
@@ -103,9 +111,18 @@ class LoopAdapter(
     }
 }
 
-class LoopImageAdapter(data: List<Int>) : BannerAdapter<Int, LoopImageViewHolder>(data) {
+class LoopImageAdapter(
+    data: List<Int>,
+    val onHeaderLoadCompleted: (itemBinding: ItemLoopHeaderImageBinding) -> Unit,
+) : BannerAdapter<Int, LoopImageViewHolder>(data) {
     override fun onCreateHolder(parent: ViewGroup, viewType: Int): LoopImageViewHolder {
-        return LoopImageViewHolder(ItemLoopHeaderImageBinding.inflate(LayoutInflater.from(parent.context)))
+        return LoopImageViewHolder(
+            ItemLoopHeaderImageBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            ), onHeaderLoadCompleted
+        )
     }
 
     override fun onBindView(
@@ -119,9 +136,13 @@ class LoopImageAdapter(data: List<Int>) : BannerAdapter<Int, LoopImageViewHolder
 
 }
 
-class LoopImageViewHolder(val binding: ItemLoopHeaderImageBinding) :
+class LoopImageViewHolder(
+    val binding: ItemLoopHeaderImageBinding,
+    val onHeaderLoadCompleted: (itemBinding: ItemLoopHeaderImageBinding) -> Unit,
+) :
     RecyclerView.ViewHolder(binding.root) {
     fun convert(item: Int) {
         binding.ivImage.setImageResource(item)
+        onHeaderLoadCompleted.invoke(binding)
     }
 }

@@ -26,6 +26,7 @@ import com.arc.fast.transition.sample.TestItem
 import com.arc.fast.transition.sample.databinding.ActivityLoopBinding
 import com.arc.fast.transition.sample.databinding.ItemLoopBinding
 import com.arc.fast.transition.sample.databinding.ItemLoopHeaderBinding
+import com.arc.fast.transition.sample.databinding.ItemLoopHeaderImageBinding
 import com.arc.fast.transition.sample.extension.applyFullScreen
 import com.arc.fast.transition.sample.extension.setLightSystemBar
 import org.greenrobot.eventbus.EventBus
@@ -73,9 +74,12 @@ class LoopActivity : AppCompatActivity() {
         }
     }
 
-    private fun onHeaderLoadCompleted(itemBinding: ItemLoopHeaderBinding) {
+    private fun onHeaderLoadCompleted(
+        itemBinding: ItemLoopHeaderBinding,
+        imageBinding: ItemLoopHeaderImageBinding
+    ) {
         // 在目标页设置需要对应参与转场的共享元素
-//        transitionTargetManager?.setTransitionView(TestData.KEY_IMAGE, itemBinding.ivImage)
+        transitionTargetManager?.setTransitionView(TestData.KEY_IMAGE, imageBinding.ivImage)
         transitionTargetManager?.setTransitionView(TestData.KEY_TITLE, itemBinding.tvTitle)
         transitionTargetManager?.setTransitionView(TestData.KEY_LIKE, itemBinding.ivLike)
     }
@@ -144,7 +148,7 @@ class LoopActivity : AppCompatActivity() {
                     if (data.getOrNull(position)?.itemType == 1) 2 else 1
             }
         }
-        binding.rv.adapter = LoopAdapter(data, this::onHeaderLoadCompleted, this::onItemClick)
+        binding.rv.adapter = LoopAdapter(this, data, this::onHeaderLoadCompleted, this::onItemClick)
     }
 
     // 更新事件

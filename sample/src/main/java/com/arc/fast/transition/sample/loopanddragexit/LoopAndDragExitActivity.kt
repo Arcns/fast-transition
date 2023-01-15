@@ -26,6 +26,7 @@ import com.arc.fast.transition.sample.TestItem
 import com.arc.fast.transition.sample.databinding.ActivityLoopAndDragExitBinding
 import com.arc.fast.transition.sample.databinding.ItemLoopBinding
 import com.arc.fast.transition.sample.databinding.ItemLoopHeaderBinding
+import com.arc.fast.transition.sample.databinding.ItemLoopHeaderImageBinding
 import com.arc.fast.transition.sample.extension.applyFullScreen
 import com.arc.fast.transition.sample.extension.setLightSystemBar
 import com.arc.fast.transition.sample.loop.LoopAdapter
@@ -54,6 +55,7 @@ class LoopAndDragExitActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityLoopAndDragExitBinding
+    private var headerItemBinding: ItemLoopHeaderBinding? = null
     private val headerData: TestItem? by lazy {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getParcelableExtra("headerData", TestItem::class.java)
@@ -94,9 +96,13 @@ class LoopAndDragExitActivity : AppCompatActivity() {
         binding.dragExitLayout.enableDragExit(bindExitActivity = this)
     }
 
-    private fun onHeaderLoadCompleted(itemBinding: ItemLoopHeaderBinding) {
+    private fun onHeaderLoadCompleted(
+        itemBinding: ItemLoopHeaderBinding,
+        imageBinding: ItemLoopHeaderImageBinding
+    ) {
+        headerItemBinding = itemBinding
         // 在目标页设置需要对应参与转场的共享元素
-//        transitionTargetManager?.setTransitionView(TestData.KEY_IMAGE, itemBinding.ivImage)
+        transitionTargetManager?.setTransitionView(TestData.KEY_IMAGE, imageBinding.ivImage)
         transitionTargetManager?.setTransitionView(TestData.KEY_TITLE, itemBinding.tvTitle)
         transitionTargetManager?.setTransitionView(TestData.KEY_LIKE, itemBinding.ivLike)
     }
@@ -142,6 +148,7 @@ class LoopAndDragExitActivity : AppCompatActivity() {
     override fun finishAfterTransition() {
         if (transitionTargetManager != null) {
             transitionTargetManager?.finishAfterTransition()
+            headerItemBinding?.banner?.setCurrentItem(0, false)
             binding.rv.scrollToPosition(0)
             binding.rv.post {
                 super.finishAfterTransition()
@@ -166,7 +173,7 @@ class LoopAndDragExitActivity : AppCompatActivity() {
                     if (data.getOrNull(position)?.itemType == 1) 2 else 1
             }
         }
-        binding.rv.adapter = LoopAdapter(data, this::onHeaderLoadCompleted, this::onItemClick)
+        binding.rv.adapter = LoopAdapter(this, data, this::onHeaderLoadCompleted, this::onItemClick)
     }
 
     // 更新事件

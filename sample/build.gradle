@@ -74,7 +74,7 @@ dependencies {
     // transition
     implementation project(path: ':transition')
     // other
-    implementation 'com.gitee.arcns.arc-fast:core:1.16.0'
-    implementation 'com.gitee.arcns.arc-fast:immersive:1.16.0'
-    implementation 'com.gitee.arcns.arc-fast:view:1.16.0'
+    implementation 'com.gitee.arcns.arc-fast:core:1.16.6'
+    implementation 'com.gitee.arcns.arc-fast:immersive:1.16.6'
+    implementation 'com.gitee.arcns.arc-fast:view:1.16.6'
 }

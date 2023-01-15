@@ -12,6 +12,7 @@
         android:layout_height="wrap_content">
 
         <com.arc.fast.view.FastBannerNestedScrollCompat
+            android:id="@+id/fbnsc"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintDimensionRatio="w,1:1"
@@ -20,7 +21,12 @@
             <com.youth.banner.Banner
                 android:id="@+id/banner"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                app:banner_indicator_gravity="center"
+                app:banner_indicator_normal_color="@color/white_40"
+                app:banner_indicator_radius="10dp"
+                app:banner_indicator_selected_color="@color/white"
+                app:banner_infinite_loop="false" />
         </com.arc.fast.view.FastBannerNestedScrollCompat>
 
         <TextView
@@ -34,7 +40,7 @@
             app:layout_constrainedWidth="true"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/ivLike"
-            app:layout_constraintTop_toBottomOf="@id/banner"
+            app:layout_constraintTop_toBottomOf="@id/fbnsc"
             tools:text="标题标题标题标题标题标题标题标题标题标题标题标题标题" />
 
 

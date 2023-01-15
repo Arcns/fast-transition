@@ -7,7 +7,7 @@
 
     </data>
 
-    <com.arc.fast.view.DragExitLayout
+    <com.arc.fast.view.FastDragExitLayout
         android:id="@+id/dragExitLayout"
         paddingBottomSystemWindowInsets="@{true}"
         paddingTopSystemWindowInsets="@{true}"
@@ -23,20 +23,24 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:layout_constraintTop_toTopOf="parent"
-            app:title="Loop Transition"
+            app:title="Loop And Drag Exit"
             app:titleCentered="true"
             app:titleTextAppearance="@style/styleToolbarTitle" />
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv"
+        <com.arc.fast.view.FastNestedScrollCompat
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
-            app:spanCount="2"
-            tools:listitem="@layout/item_loop" />
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-    </com.arc.fast.view.DragExitLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"
+                tools:listitem="@layout/item_loop" />
+        </com.arc.fast.view.FastNestedScrollCompat>
+    </com.arc.fast.view.FastDragExitLayout>
 </layout>

@@ -20,14 +20,6 @@ class MainActivity : AppCompatActivity() {
         applyFullScreen()
         setLightSystemBar(true)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.toolbar.apply {
-            this.navigationIcon = DrawerArrowDrawable(this@MainActivity).apply {
-                progress = 1f
-            }
-            this.setNavigationOnClickListener {
-                onBackPressedDispatcher.onBackPressed()
-            }
-        }
         binding.btnSimple.setOnClickListener {
             SimpleActivity.start(this)
         }
