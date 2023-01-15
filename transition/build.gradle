@@ -30,7 +30,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.7.0'
     // 仅编译，若项目需要使用到，需要在项目中自行引用
-    compileOnly 'com.gitee.arcns.arc-fast:view:1.16.0'
+    compileOnly 'com.gitee.arcns.arc-fast:view:1.16.6'
     // 解除反射限制
     implementation 'com.github.tiann:FreeReflection:3.1.0'
 }
