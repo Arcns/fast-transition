@@ -87,7 +87,8 @@ class LoopAndDragExitActivity : AppCompatActivity() {
         loadTestData()
         // 在目标页应用转场动画
         transitionTargetManager?.applyTransitionEnterAndReturnConfig(
-            postponeEnterTransition = true // 这里先暂停转场，等待页面准备好后再调用startTransitionEnter启动动画
+            postponeEnterTransition = true, // 这里先暂停转场，等待页面准备好后再调用startTransitionEnter启动动画
+            pageCurrentScale = binding.dragExitLayout::getDragExitCurrentScale // 绑定拖拽退出的缩放大小
         )
         binding.rv.doOnPreDraw {
             transitionTargetManager?.startTransitionEnter()

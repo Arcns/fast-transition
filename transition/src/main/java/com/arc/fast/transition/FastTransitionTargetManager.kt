@@ -16,6 +16,8 @@ class FastTransitionTargetManager(
     val activity: Activity,
     val configs: List<FastTransitionConfig>,
 ) {
+    var defaultPageCurrentScale: (() -> Float)? = null
+
     fun getTransitionConfig(key: String): FastTransitionConfig? =
         configs.firstOrNull { it.key == key }
 
@@ -33,6 +35,7 @@ class FastTransitionTargetManager(
         pageCurrentScale: (() -> Float)? = null,
         onTransitionEnd: (() -> Unit)? = null
     ) {
+        defaultPageCurrentScale = pageCurrentScale
         // 先暂停动画，等待准备好后再通知开始动画
         if (postponeEnterTransition) activity.postponeEnterTransition()
         // 初始化操作
@@ -126,7 +129,7 @@ class FastTransitionTargetManager(
      * 修复Q及以上系统，3个及以上连续的activity拥有共享元素动画时，共享元素动画丢失的BUG（使用反射）
      */
     fun finishAfterTransition(
-        pageCurrentScale: Float? = null
+        pageCurrentScale: Float? = defaultPageCurrentScale?.invoke()
     ) {
         if (pageCurrentScale != null && pageCurrentScale != 1f) {
             configs.forEach {
