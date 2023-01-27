@@ -6,7 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
 import androidx.databinding.DataBindingUtil
-import com.arc.fast.core.extensions.dp
+ import com.arc.fast.core.extensions.dpToPx
 import com.arc.fast.transition.FastRoundedItem
 import com.arc.fast.transition.FastTransitionViewManager
 import com.arc.fast.transition.item.rounded.FastRoundedValue
@@ -51,7 +51,7 @@ class SimpleActivity : AppCompatActivity() {
             fastTransitionViewManager.addView(
                 TestData.KEY_IMAGE,
                 binding.ivImage,
-                FastRoundedItem(FastRoundedValue(12f.dp)),//圆角动画
+                FastRoundedItem(FastRoundedValue(12f.dpToPx)),//圆角动画
                 FastSystemTransitionItem(FastSystemTransitionType.ChangeImageTransform)//图片切换动画
             )
             fastTransitionViewManager.addView(

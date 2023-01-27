@@ -9,7 +9,7 @@ import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
 import androidx.core.view.doOnPreDraw
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
-import com.arc.fast.core.extensions.dp
+import com.arc.fast.core.extensions.dpToPx
 import com.arc.fast.transition.FastRoundedItem
 import com.arc.fast.transition.FastTransitionTargetManager
 import com.arc.fast.transition.FastTransitionViewManager
@@ -94,7 +94,7 @@ class LoopActivity : AppCompatActivity() {
         fastTransitionViewManager.addView(
             TestData.KEY_IMAGE,
             itemBinding.ivImage,
-            FastRoundedItem(FastRoundedValue(12f.dp)),//圆角动画
+            FastRoundedItem(FastRoundedValue(12f.dpToPx)),//圆角动画
             FastSystemTransitionItem(FastSystemTransitionType.ChangeImageTransform)//图片切换动画
         )
         fastTransitionViewManager.addView(
