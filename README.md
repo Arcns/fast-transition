@@ -39,16 +39,10 @@ fun goTarget(){
      // 1、添加需要参与转场的共享元素并配置所需动画
     val fastTransitionViewManager = FastTransitionViewManager()
     fastTransitionViewManager.addView(
-        "IMAGE",
-        ivImage,
-        FastRoundedItem(FastRoundedValue(12f.dpToPx)),//圆角动画
-        FastSystemTransitionItem(FastSystemTransitionType.ChangeImageTransform),//图片切换动画
-        ... // 可以配置更多动画
-    )
-    fastTransitionViewManager.addView(
-        "TITLE",
-        tvTitle,
-        FastTextViewItem(FastTextViewValue(tvTitle)),//textview切换动画
+        "IMAGE", // 共享元素的key
+        ivImage, // 共享元素view
+        FastRoundedItem(FastRoundedValue(12f.dpToPx)),//共享元素动画：圆角动画
+        FastSystemTransitionItem(FastSystemTransitionType.ChangeImageTransform),//共享元素动画：图片切换动画
         ... // 可以配置更多动画
     )
     fastTransitionViewManager.addView(...)
@@ -56,8 +50,12 @@ fun goTarget(){
     fastTransitionViewManager.addView(...) // 可以添加更多需要参与转场的共享元素
     // 2、通过startActivity启动目标页
     fastTransitionViewManager.startActivity(
-        activity = this,
-        targetActivityCLass = TargetActivity::class.java
+        activity = this, // 当前页activity
+        targetActivityCLass = TargetActivity::class.java, // 目标页Class
+        targetDataID = "1", // 可选：目标页对应的数据ID，默认为null
+        applyIntent = { intent-> 
+            // 可选：intent回调，你可以在这里为intent添加更多数据
+        }
     )
 }
 ```
@@ -68,9 +66,21 @@ override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     val transitionTargetManager = FastTransitionTargetManager.getManager(this)
     // 1、配置与`开始页`对应的共享元素
-    transitionTargetManager?.setTransitionView("IMAGE", ivImage)
-    transitionTargetManager?.setTransitionView("TITLE", tvTitle)
+    transitionTargetManager?.setTransitionView(
+         "IMAGE", // 与`开始页`对应的共享元素的key
+         ivImage // 与`开始页`对应的共享元素view
+    )
+    transitionTargetManager?.setTransitionView(...)
     // 2、应用转场动画
-    transitionTargetManager?.applyTransitionEnterAndReturnConfig()
+    transitionTargetManager?.applyTransitionEnterAndReturnConfig(
+        duration = 150, // 可选：转场动画时长，默认为150,
+        postponeEnterTransition = false, // 可选：是否暂停转场动画，直到用户调用startTransitionEnter再开始转场动画，默认为false
+        postponeEnterTransitionTimeout = 500, // 可选：如果暂停转场动画，那么达到该超时时间仍未调用startTransitionEnter时，管理器将自动开始转场动画
+        pageCurrentScale = { 1f }, // 可选：返回当前页面的缩放比例，该方法一般用于与拖拽退出结合使用，默认为null
+        onTransitionEnd = {
+            // 可选：转场动画结束的回调，默认为null
+        }
+,
+    )
 }
 ```
