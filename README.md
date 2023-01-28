@@ -89,4 +89,4 @@ override fun onCreate(savedInstanceState: Bundle?) {
 | 动画名 | 简介 |
 | ------ | ------ |
 | FastTextViewItem | TextView的共享元素动画 |
-| FastRoundedItem | 圆角控件[Fast Rounded](https://github.com/Arcns/arc-fast#%E5%85%ABfast-rounded)的共享元素动画 |
+| FastRoundedItem | 圆角控件（[Fast Rounded](https://github.com/Arcns/arc-fast#%E5%85%ABfast-rounded)）的共享元素动画 |
