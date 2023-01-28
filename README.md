@@ -94,4 +94,4 @@ override fun onCreate(savedInstanceState: Bundle?) {
 | FastSimpleItem | 可实现渐变或缩放的简单共享元素动画 |
 | FastImageItem | 支持切换图片或背景的共享元素动画 |
 | FastBackgroundFadeItem | 背景渐变的共享元素动画 |
-| FastBackgroundFadeItem | （[FastTextView](https://github.com/Arcns/arc-fast#%E5%85%ABfast-textview)）渐变消失的共享元素动画 |
+| FastBackgroundFadeItem | [FastTextView](https://github.com/Arcns/arc-fast#%E4%B9%9Dfast-textview)渐变消失的共享元素动画，该动画会在目标页面创建相同控件以完成消失动画 |
