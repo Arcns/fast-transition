@@ -90,3 +90,8 @@ override fun onCreate(savedInstanceState: Bundle?) {
 | ------ | ------ |
 | FastTextViewItem | TextView的共享元素动画 |
 | FastRoundedItem | 圆角控件（[Fast Rounded](https://github.com/Arcns/arc-fast#%E5%85%ABfast-rounded)）的共享元素动画 |
+| FastToggleImageViewItem | 支持根据状态切换图片的共享元素动画 |
+| FastSimpleItem | 可实现渐变或缩放的简单共享元素动画 |
+| FastImageItem | 支持切换图片或背景的共享元素动画 |
+| FastBackgroundFadeItem | 背景渐变的共享元素动画 |
+| FastBackgroundFadeItem | （[FastTextView](https://github.com/Arcns/arc-fast#%E5%85%ABfast-textview)）渐变消失的共享元素动画 |
