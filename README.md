@@ -31,7 +31,41 @@ allprojects {
 ```
 
 #### 3.使用方式
-- （1）
+- （1）在转场`开始页`跳转到`目标页`时，使用`FastTransitionViewManager`配置共享元素动画和启动`目标页`
 ```
-
+在开始页 StartActivity.kt
+// 跳转到目标页
+fun goTarget(){
+     // 1、添加需要参与转场的共享元素并配置所需动画
+    val fastTransitionViewManager = FastTransitionViewManager()
+    fastTransitionViewManager.addView(
+        "IMAGE",
+        ivImage,
+        FastRoundedItem(FastRoundedValue(12f.dpToPx)),//圆角动画
+        FastSystemTransitionItem(FastSystemTransitionType.ChangeImageTransform)//图片切换动画
+    )
+    fastTransitionViewManager.addView(
+        "TITLE",
+        tvTitle,
+        FastTextViewItem(FastTextViewValue(tvTitle)),//textview切换动画
+    )
+    // 2、通过startActivity启动目标页
+    fastTransitionViewManager.startActivity(
+        activity = this,
+        targetActivityCLass = TargetActivity::class.java
+    )
+}
+```
+- （2）在到`目标页`的onCreate中，使用`FastTransitionTargetManager`配置与`开始页`对应的共享元素并应用转场动画
+```
+在目标页 TargetActivity.kt
+override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    val transitionTargetManager = FastTransitionTargetManager.getManager(this)
+    // 1、配置与`开始页`对应的共享元素
+    transitionTargetManager?.setTransitionView("IMAGE", ivImage)
+    transitionTargetManager?.setTransitionView("TITLE", tvTitle)
+    // 2、应用转场动画
+    transitionTargetManager?.applyTransitionEnterAndReturnConfig()
+}
 ```
