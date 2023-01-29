@@ -2,7 +2,6 @@ package com.arc.fast.transition.item
 
 import android.app.Activity
 import android.view.View
-import android.view.ViewGroup
 import com.arc.fast.transition.FastTransitionConfig
 
 /**
@@ -21,16 +20,16 @@ abstract class FastTransitionItem(
         pageCurrentScale: Float?
     ): FastBaseCalculator<*, *>?
 
-    // 视图已准备好，您可以在此处进行视图相关的初始化
-    open fun initByView(isEnter: Boolean, view: View, pageCurrentScale: Float? = null) {}
+    // 视图动画准备（下一步将创建计算器）的回调，您可以在此处进行视图相关的初始化，例如根据视图准备目标页对应的共享元素数据
+    open fun onViewAnimReady(isEnter: Boolean, view: View, pageCurrentScale: Float? = null) {}
 
-    // 执行进入动画前的回调，您可以在此进行动画前的初始化工作
+    // 执行进入动画前的回调，您可以在此进行进入动画前的初始化工作
     open fun onEnterBefore(
         activity: Activity,
         transitionConfig: FastTransitionConfig
     ) {
     }
 
-    // 执行离开动画前的回调，您可以在此进行动画前的初始化工作
+    // 执行离开动画前的回调，您可以在此进行离开动画前的初始化工作
     open fun onReturnBefore(view: View, pageCurrentScale: Float? = null) {}
 }

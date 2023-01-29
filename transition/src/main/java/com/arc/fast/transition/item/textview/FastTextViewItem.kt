@@ -3,6 +3,7 @@ package com.arc.fast.transition.item.textview
 import android.view.View
 import android.widget.TextView
 import com.arc.fast.transition.item.FastTransitionItem
+import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 
 /**
@@ -10,18 +11,19 @@ import kotlinx.parcelize.Parcelize
  */
 @Parcelize
 data class FastTextViewItem(
-    var start: FastTextViewValue? = null, var end: FastTextViewValue? = null
+    var start: FastTextViewValue? = null
 ) : FastTransitionItem() {
+    @IgnoredOnParcel
+    private var end: FastTextViewValue? = null
     override val enable: Boolean get() = start != end && start != null && end != null
     override fun getCalculator(
         isEnter: Boolean, pageCurrentScale: Float?
     ): FastTextViewCalculator? {
-        if (!enable) return null
         return if (isEnter) FastTextViewCalculator(start!!, end!!, pageCurrentScale)
         else FastTextViewCalculator(end!!, start!!, pageCurrentScale)
     }
 
-    override fun initByView(isEnter: Boolean, view: View, pageCurrentScale: Float?) {
+    override fun onViewAnimReady(isEnter: Boolean, view: View, pageCurrentScale: Float?) {
         if (view is TextView) {
             end = FastTextViewValue(view)
         }

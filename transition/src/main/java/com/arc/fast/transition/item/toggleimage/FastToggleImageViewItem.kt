@@ -3,6 +3,7 @@ package com.arc.fast.transition.item.toggleimage
 import android.view.View
 import android.widget.ImageView
 import com.arc.fast.transition.item.FastTransitionItem
+import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 
 /**
@@ -10,18 +11,19 @@ import kotlinx.parcelize.Parcelize
  */
 @Parcelize
 data class FastToggleImageViewItem(
-    var start: FastToggleImageViewValue? = null, var end: FastToggleImageViewValue? = null
+    var start: FastToggleImageViewValue? = null
 ) : FastTransitionItem() {
+    @IgnoredOnParcel
+    private var end: FastToggleImageViewValue? = null
     override val enable: Boolean get() = start != end && start != null && end != null
     override fun getCalculator(
         isEnter: Boolean, pageCurrentScale: Float?
     ): FastToggleImageViewCalculator? {
-        if (!enable) return null
         return if (isEnter) FastToggleImageViewCalculator(start!!, end!!)
         else FastToggleImageViewCalculator(end!!, start!!)
     }
 
-    override fun initByView(isEnter: Boolean, view: View, pageCurrentScale: Float?) {
+    override fun onViewAnimReady(isEnter: Boolean, view: View, pageCurrentScale: Float?) {
         if (view is ImageView) {
             end = FastToggleImageViewValue(view)
         }

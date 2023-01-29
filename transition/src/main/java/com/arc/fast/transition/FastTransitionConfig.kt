@@ -44,8 +44,10 @@ class FastTransitionConfig(
     ): List<FastBaseCalculator<*, *>> {
         return items.mapNotNull {
             (it as? FastTransitionItem)?.apply {
-                initByView(isEnter, view, pageCurrentScale)
-            }?.getCalculator(isEnter, pageCurrentScale)
+                onViewAnimReady(isEnter, view, pageCurrentScale)
+            }?.let { item ->
+                if (item.enable) item.getCalculator(isEnter, pageCurrentScale) else null
+            }
         }
     }
 

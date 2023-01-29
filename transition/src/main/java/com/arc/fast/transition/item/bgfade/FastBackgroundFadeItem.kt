@@ -17,7 +17,6 @@ data class FastBackgroundFadeItem(
         isEnter: Boolean,
         pageCurrentScale: Float?
     ): FastBackgroundFadeCalculator? {
-        if (!enable) return null
         // 0 表示完全透明，255 表示完全不透明
         val start: Float
         val end: Float
