@@ -88,11 +88,13 @@ override fun onCreate(savedInstanceState: Bundle?) {
 所有支持的动画如下：
 | 动画名 | 简介 |
 | ------ | ------ |
-| FastTextViewItem | TextView的共享元素动画 |
-| FastRoundedItem | 圆角控件（[Fast Rounded](https://github.com/Arcns/arc-fast#%E5%85%ABfast-rounded)）的共享元素动画 |
-| FastToggleImageViewItem | 支持根据状态切换图片的共享元素动画 |
-| FastSimpleItem | 可实现渐变或缩放的简单共享元素动画 |
-| FastImageItem | 支持切换图片或背景的共享元素动画 |
-| FastBackgroundFadeItem | 背景渐变的共享元素动画 |
-| FastBackgroundFadeItem | [FastTextView](https://github.com/Arcns/arc-fast#%E4%B9%9Dfast-textview)渐变消失的共享元素动画，该动画会在目标页面创建相同控件以完成消失动画 |
-| FastSystemTransitionItem | 系统自带的共享元素动画 |
+| FastTextViewItem | TextView的共享元素动画，能够实现文字大小、颜色、行高、间距、粗体等属性的过渡动画 |
+| FastRoundedItem | 圆角的共享元素动画（需要使用圆角控件[Fast Rounded](https://github.com/Arcns/arc-fast#%E5%85%ABfast-rounded)） |
+| FastToggleImageViewItem | 支持根据状态切换图片的共享元素动画，通常用于点赞、收藏、关注等需要根据状态同时切换`开始页`与`目标页`图片的场景 |
+| FastSimpleItem | 可实现渐变或缩放的简单共享元素动画，通常用于那些内部不一致的共享元素容器控件，避免内部不同导致过渡时突兀 |
+| FastImageItem | 支持切换图片或背景的共享元素动画，通常用于不同图片间的过渡，该动画会通过渐变效果的过渡到另一张图片 |
+| FastBackgroundFadeItem | 背景渐变显示或隐藏的共享元素动画，通常用于只有一边有背景而另一边没有的场景 |
+| FastBackgroundFadeItem | [FastTextView](https://github.com/Arcns/arc-fast#%E4%B9%9Dfast-textview)渐变消失的共享元素动画，该动画会在目标页面创建相同控件以完成渐变消失动画 |
+| FastSystemTransitionItem | 系统自带的共享元素动画，用于实现在本库中使用系统自带的动画 |
+
+#### 5.扩展自定义动画
