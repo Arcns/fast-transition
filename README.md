@@ -18,10 +18,8 @@
 问题已经分析出来了，接下来我们逐个解决：
 
 - （1）实现自定义的共享元素我们通过自定义`Transition`，在`createAnimator`中返回响应的动画来实现
-- （2）实现多页面的共享元素过渡我们通过反射修复BUG（如果你对反射有顾虑或没有该功能场景，则不需要考虑该问题）
--
-
-（3）实现拖拽退出效果，这里我通过另外一个开源项目来更加完整的解决该问题：[FastDragExitLayout](https://github.com/Arcns/arc-fast#%E5%8D%81%E4%B8%80fast-dragexitlayout)
+- （2）实现多页面的共享元素过渡我们通过反射修复BUG（如果你对反射有顾虑或没有该功能场景，则不需关注该方式）
+- （3）实现拖拽退出效果，这里我通过另外一个开源项目来更加完整的解决该问题：[FastDragExitLayout](https://github.com/Arcns/arc-fast#%E5%8D%81%E4%B8%80fast-dragexitlayout)
 
 #### 2.集成方式：
 
@@ -102,9 +100,38 @@ override fun onCreate(savedInstanceState: Bundle?) {
 ,
     )
 }
+// 可选：修复Q及以上系统，activity调用onStop后共享元素动画丢失的BUG
+override fun onStop() {
+    transitionTargetManager?.onStop()
+    super.onStop()
+}
 ```
 
-#### 4.支持的动画
+#### 4.修复多个连续页面的共享元素过渡时，共享元素动画丢失的BUG
+
+注意：该BUG需要使用反射进行修复，截至到目前最新的API 33，该方法仍然能够有效修复该BUG，但如果你对反射有顾虑或没有该功能场景，则不要使用以下方法。
+
+```
+// 在自定义Application MyApplication.kt
+class MyApplication : Application() {
+    override fun attachBaseContext(base: Context) {
+        super.attachBaseContext(base)
+        // 启用多个连续页面的共享元素过渡功能
+        FastTransitionUtils.enableMultipleActivityTransition(this)
+    }
+}
+```
+
+```
+// 在目标页 TargetActivity.kt
+// 修复Q及以上系统，3个及以上连续的activity拥有共享元素动画时，共享元素动画丢失的BUG（使用反射）
+override fun finishAfterTransition() {
+    transitionTargetManager?.finishAfterTransition()
+    super.finishAfterTransition()
+}
+```
+
+#### 5.支持的动画
 
 本Library在原有系统自带的共享元素动画基础上，扩展了一些常用的动画效果，所有内置动画如下： 
 | 动画名 | 简介 | 
@@ -118,7 +145,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
 | FastDisposableFastTextViewItem | [FastTextView](https://github.com/Arcns/arc-fast#%E4%B9%9Dfast-textview)渐变消失的共享元素动画，该动画会在目标页面创建相同控件以完成渐变消失动画 |
 | FastSystemTransitionItem | 系统自带的共享元素动画，用于实现在本库中使用系统自带的动画 |
 
-#### 5.扩展自定义的动画
+#### 6.扩展自定义的动画
 
 如果内置的动画不符合你的需求场景，或者你需要让你的其他控件也参与共享元素动画，那么你可以扩展自定义的动画.
 本Library对扩展自定义的动画也进行了简化，通常情况下你只需两步即可实现扩展自定义的动画：
