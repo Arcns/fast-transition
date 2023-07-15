@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="fast_toggle_imageview_is_select" type="id" />
+    <item name="fast_toggle_imageview_normal_icon" type="id" />
+    <item name="fast_toggle_imageview_select_icon" type="id" />
+</resources>
