@@ -73,11 +73,11 @@ dependencies {
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.7'
     // transition
     implementation project(path: ':transition')
-//    implementation 'com.gitee.arcns:fast-transition:1.0.1'
+//    implementation 'com.github.Arcns:fast-transition:1.0.1'
     // other
-    implementation 'com.gitee.arcns.arc-fast:core:1.18.3'
-    implementation 'com.gitee.arcns.arc-fast:immersive:1.18.3'
-    implementation 'com.gitee.arcns.arc-fast:rounded:1.18.3'
-    implementation 'com.gitee.arcns.arc-fast:drag-exit:1.18.3'
-    implementation 'com.gitee.arcns.arc-fast:nested-scroll-compat:1.18.3'
+    implementation 'com.github.Arcns.arc-fast:core:1.23.1'
+    implementation 'com.github.Arcns.arc-fast:immersive:1.23.1'
+    implementation 'com.github.Arcns.arc-fast:rounded:1.23.1'
+    implementation 'com.github.Arcns.arc-fast:drag-exit:1.23.1'
+    implementation 'com.github.Arcns.arc-fast:nested-scroll-compat:1.23.1'
 }

@@ -1,6 +1,6 @@
 # fast-transition
 
-[![](https://jitpack.io/v/com.gitee.arcns/fast-transition.svg)](https://jitpack.io/#com.gitee.arcns/fast-transition)
+[![](https://jitpack.io/v/Arcns/fast-transition.svg)](https://jitpack.io/#Arcns/fast-transition)
 
 
 > 最近小伙伴有个需求，就是实现类似于小红书、Lemon8的共享元素转场效果，查了一圈发现并没有特别合适的Library，于是便做了一个开源Library项目，方便大家集成后，一行代码实现Android仿小红书、Lemon8的共享元素转场效果。
@@ -34,11 +34,11 @@ allprojects {
 
 ```
  // 注意：本Library基于androidx
- implementation 'com.gitee.arcns:fast-transition:latest.release'
+ implementation 'com.github.Arcns:fast-transition:latest.release'
  // 可选：如果你需要使用FastRoundedItem（圆角的共享元素动画），那么你项目中需要引入fast rounded
- implementation 'com.gitee.arcns.arc-fast:rounded:yourversion'
+ implementation 'com.github.Arcns.arc-fast:rounded:yourversion'
  // 可选：如果你需要使用FastDisposableFastTextViewItem（渐变消失的图片文本视图），那么你项目中需要引入fast textview
- implementation 'com.gitee.arcns.arc-fast:text-view:yourversion'
+ implementation 'com.github.Arcns.arc-fast:text-view:yourversion'
 ```
 
 #### 3.使用方式

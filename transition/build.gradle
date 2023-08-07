@@ -28,8 +28,8 @@ android {
 dependencies {
     compileOnly 'androidx.appcompat:appcompat:1.6.0'
     // 仅编译，若项目需要使用到，需要在项目中自行引用
-    compileOnly 'com.gitee.arcns.arc-fast:rounded:1.18.3'
-    compileOnly 'com.gitee.arcns.arc-fast:text-view:1.18.3'
+    compileOnly 'com.github.Arcns.arc-fast:rounded:1.18.3'
+    compileOnly 'com.github.Arcns.arc-fast:text-view:1.18.3'
     compileOnly 'androidx.constraintlayout:constraintlayout:2.1.4'
     // 解除反射限制
     implementation 'com.github.tiann:FreeReflection:3.1.0'
