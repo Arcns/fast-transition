@@ -36,9 +36,9 @@ allprojects {
  // 注意：本Library基于androidx
  implementation 'com.github.Arcns:fast-transition:latest.release'
  // 可选：如果你需要使用FastRoundedItem（圆角的共享元素动画），那么你项目中需要引入fast rounded
- implementation 'com.github.Arcns.arc-fast:rounded:yourversion'
+ implementation 'com.github.Arcns.arc-fast:rounded:1.23.1'
  // 可选：如果你需要使用FastDisposableFastTextViewItem（渐变消失的图片文本视图），那么你项目中需要引入fast textview
- implementation 'com.github.Arcns.arc-fast:text-view:yourversion'
+ implementation 'com.github.Arcns.arc-fast:text-view:1.23.1'
 ```
 
 #### 3.使用方式
