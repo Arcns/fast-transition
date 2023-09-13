@@ -107,6 +107,81 @@ override fun onStop() {
 }
 ```
 
+- 补充，如何在跳转到新页面后，在返回时更改两边的共享元素。
+例如从RecyclerView页跳转到ViewPager页，然后用户在ViewPager页滑动到了其他Item，在返回时希望能够看到ViewPager页该Item与RecyclerView页对应Item的共享元素动画
+```
+// 在开始页 ListActivity.kt
+override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    ...
+    // 由于在目标页，我们可能浏览到了其他的Item，因此返回到开始页时，我们需要把共享元素更新到对应的Item中
+    setExitSharedElementCallback(object : SharedElementCallback() {
+        override fun onMapSharedElements(
+            names: MutableList<String>,
+            sharedElements: MutableMap<String, View>
+        ) {
+            // 在此处通过transitionTargetManager.changeExitSharedElements对共享元素的Item进行更改，以下为演示代码
+            if (viewPagerItem == -1) return
+            val selectedViewHolder =
+                recyclerView.findViewHolderForAdapterPosition(viewPagerItem) ?: return
+            transitionTargetManager.changeExitSharedElements(
+                sharedElements,
+                TestData.KEY_IMAGE to selectedViewHolder.itemView.findViewById(R.id.ivImage)
+            )
+        }
+    })
+}
+
+override fun onActivityReenter(resultCode: Int, data: Intent?) {
+    // 由于在目标页，我们可能浏览到了其他的Item，因此返回到开始页时，我们需要把共享元素更新到对应的Item中
+    // 在此处根据实际需求更改布局，以下为演示代码：先把动画暂停，然后把列表移动到目标Item，再恢复动画，以便在setExitSharedElementCallback回调中把共享元素更新到对应的Item中
+    if (ViewPagerDataSource.currentItem == -1) return
+    postponeEnterTransition() // 暂停动画
+    recyclerView.layoutManager?.scrollToPosition(viewPagerItem)
+    recyclerView.post {
+        // 更改布局后恢复执行动画
+        startPostponedEnterTransition()
+    }
+}
+
+```
+
+```
+// 在目标页 ViewPagerActivity.kt
+
+override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    ...
+    // 用户切换Item时，更新共享动画元素到当前Item
+    viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        override fun onPageSelected(position: Int) {
+            // 切换后，通过transitionTargetManager.setTransitionView重新更改需要参与转场的共享元素
+            // 以下为演示代码：
+            ViewPagerDataSource.currentItem = position
+            val fragment = viewPager.findFragmentAtPosition(
+                supportFragmentManager,
+                position
+            ) as? ViewPagerFragment
+            if (fragment != null) {
+                // 用户切换Item时，更新共享动画元素到当前Item
+                transitionTargetManager?.setTransitionView(
+                    TestData.KEY_IMAGE,
+                    fragment.binding.ivImage
+                )
+            }
+            super.onPageSelected(position)
+        }
+    })
+}
+
+ override fun onBackPressed() {
+    // 注意返回到开始页之前，您必须先调用setResult，以便开始页触发onActivityReenter回调(进行布局更新处理)
+    setResult(100)
+    super.onBackPressed()
+}
+
+```
+
 #### 4.修复多个连续页面的共享元素过渡时，共享元素动画丢失的BUG
 
 注意：该BUG需要使用反射进行修复，截至到目前最新的API 33，该方法仍然能够有效修复该BUG，但如果你对反射有顾虑或没有该功能场景，则不要使用以下方法。
