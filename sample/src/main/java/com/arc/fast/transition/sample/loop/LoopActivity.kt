@@ -33,6 +33,10 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
+/**
+ * 循环页面示例
+ * 同时作为起始页与目标页
+ */
 class LoopActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoopBinding

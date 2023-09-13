@@ -11,6 +11,9 @@ import com.arc.fast.transition.sample.databinding.ActivitySimple2Binding
 import com.arc.fast.transition.sample.extension.applyFullScreen
 import com.arc.fast.transition.sample.extension.setLightSystemBar
 
+/**
+ * 简单过度示例的目标页
+ */
 class Simple2Activity : AppCompatActivity() {
 
     lateinit var binding: ActivitySimple2Binding

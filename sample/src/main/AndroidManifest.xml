@@ -24,6 +24,12 @@
             android:name=".loop.LoopActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".viewpager.ListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".viewpager.ViewPagerActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".loopanddragexit.LoopAndDragExitActivity"
             android:screenOrientation="portrait"
             android:theme="@style/TransitionTheme" />

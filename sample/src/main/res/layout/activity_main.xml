@@ -50,6 +50,12 @@
                 android:layout_height="wrap_content"
                 android:text="Loop And Drag Exit" />
 
+            <Button
+                android:id="@+id/btnViewPager"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ViewPager" />
+
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

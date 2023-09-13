@@ -38,6 +38,21 @@ open class FastTransitionViewManager {
         )
     }
 
+    /**
+     * 更改共享元素
+     */
+    fun changeExitSharedElements(
+        exitSharedElementsMap: MutableMap<String, View>,
+        vararg sharedElements: kotlin.Pair<String, View>
+    ) {
+        exitSharedElementsMap.clear()
+        sharedElements.forEach {
+            val transitionName = views[it.first]?.config?.transitionName
+            if (transitionName.isNullOrBlank()) return@forEach
+            exitSharedElementsMap[transitionName] = it.second
+        }
+    }
+
     // 返回共享元素视图，并约束指定类型
     inline fun <reified T> getView(key: String): T? = views[key]?.view as? T
 

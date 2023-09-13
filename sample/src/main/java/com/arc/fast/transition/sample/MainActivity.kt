@@ -2,7 +2,6 @@ package com.arc.fast.transition.sample
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
 import androidx.databinding.DataBindingUtil
 import com.arc.fast.transition.sample.databinding.ActivityMainBinding
 import com.arc.fast.transition.sample.extension.applyFullScreen
@@ -10,6 +9,7 @@ import com.arc.fast.transition.sample.extension.setLightSystemBar
 import com.arc.fast.transition.sample.loop.LoopActivity
 import com.arc.fast.transition.sample.loopanddragexit.LoopAndDragExitActivity
 import com.arc.fast.transition.sample.simple.SimpleActivity
+import com.arc.fast.transition.sample.viewpager.ListActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,6 +28,9 @@ class MainActivity : AppCompatActivity() {
         }
         binding.btnLoopAndDragExit.setOnClickListener {
             LoopAndDragExitActivity.start(this)
+        }
+        binding.btnViewPager.setOnClickListener {
+            ListActivity.start(this)
         }
     }
 

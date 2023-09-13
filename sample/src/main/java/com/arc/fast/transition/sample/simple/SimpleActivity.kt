@@ -20,6 +20,9 @@ import com.arc.fast.transition.sample.databinding.ActivitySimpleBinding
 import com.arc.fast.transition.sample.extension.applyFullScreen
 import com.arc.fast.transition.sample.extension.setLightSystemBar
 
+/**
+ * 简单过度示例的起始页
+ */
 class SimpleActivity : AppCompatActivity() {
 
     companion object {

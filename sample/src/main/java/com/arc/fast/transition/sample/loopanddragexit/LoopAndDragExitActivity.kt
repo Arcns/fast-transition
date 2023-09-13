@@ -34,6 +34,10 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
+/**
+ * 循环页面+拖拽退出示例
+ * 同时作为起始页与目标页
+ */
 class LoopAndDragExitActivity : AppCompatActivity() {
 
     companion object {
