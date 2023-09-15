@@ -1,3 +1,4 @@
 rootProject.name = "fast-transition"
-include ':transition'
+include ':basic'
+include ':shared-element'
 include ':sample'
