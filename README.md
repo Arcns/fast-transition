@@ -2,6 +2,7 @@
 
 [![](https://jitpack.io/v/Arcns/fast-transition.svg)](https://jitpack.io/#Arcns/fast-transition)
 
+## 一、shared-element 共享元素库
 
 > 最近小伙伴有个需求，就是实现类似于小红书、Lemon8的共享元素转场效果，查了一圈发现并没有特别合适的Library，于是便做了一个开源Library项目，方便大家集成后，一行代码实现Android仿小红书、Lemon8的共享元素转场效果。
 
@@ -290,4 +291,104 @@ data class CustomItem(
     override fun onReturnBefore(view: View, pageCurrentScale: Float?) {
     }
 }
+```
+
+
+## 二、basic 基础库
+
+- 封装了常用的动画相关方法
+#### 1.集成方式：
+```
+allprojects {
+	repositories {
+		...
+		maven { url 'https://www.jitpack.io' }
+	}
+}
+```
+```
+ // 注意：shared-element已包含有basic，如果您项目里已经集成shared-element，则不需要再集成basic
+ implementation 'com.github.Arcns.fast-transition:basic:latest.release'
+```
+
+#### 2.使用方式
+
+- （1）为动画绑定生命周期
+```
+// 自动跟随生命周期对动画进行暂停、停止等操作
+animator.bindLifecycle(
+    // 绑定的生命周期，必填项
+    lifecycleOwner = lifecycleOwner,
+    // 检查是否跳过本次处理动作，默认为空（不跳过）
+    checkSkipAction = {animator: Animator, isPause: Boolean->
+        false
+    },
+    // 生命周期暂停时执行的动作，默认为暂停动画
+    lifecyclePauseAction = AnimatorLifecyclePauseAction.Pause,
+)
+
+```
+- （2）快速启动ValueAnimator
+```
+// 快速开始Float ValueAnimator
+FastAnimator.startFloatValueAnimator(
+    start = 0f, // 动画开始的值(Float)，默认为0f
+    end = 1f, // 动画结束的值(Float)，默认为1f
+    startDelay = 0L, // 动画开始时的休眠时长(毫秒)，默认为0
+    duration = 300L, // 动画时长(毫秒)，默认为300
+    lifecycleOwner = lifecycleOwner,// 绑定的生命周期，默认为null
+    // 动画事件回调，默认为null
+    listener = object:DefaultAnimatorListener{
+        // 动画开始回调
+        override fun onAnimationStart(animation: Animator) {}
+        // 动画结束回调
+        override fun onAnimationEnd(animation: Animator) {}
+        // 动画取消回调
+        override fun onAnimationCancel(animation: Animator) {}
+        // 动画结束回调
+        override fun onAnimationRepeat(animation: Animator) {}
+    },
+    // 动画更新处理回调，必填项
+    onUpdate = {value->
+        // 您在此处进行动画UI布局更新
+    }
+)
+
+// 快速创建Float ValueAnimator，您需要自行start
+val animator = FastAnimator.createFloatValueAnimator(
+    ... // 参数参考startFloatValueAnimator
+)
+animator.start()
+
+// 快速开始Int ValueAnimator
+FastAnimator.startIntValueAnimator(
+    ... // 参数参考startFloatValueAnimator
+)
+
+// 快速创建Int ValueAnimator，您需要自行start
+val animator = FastAnimator.createIntValueAnimator(
+    ... // 参数参考startIntValueAnimator
+)
+animator.start()
+```
+
+- （3）计算动画过程对应的值
+```
+// 计算动画过程对应的Float值
+val value = FastAnimator.calculatorFloatValue(
+    first,// 动画开始值，Float 
+    last,// 动画结束值，Float
+    differ,// 动画间隔值，计算方式通常为(end-first)/maxProgress，Float 
+    progress// 当前进度值，Float
+)
+
+// 计算动画过程对应的Int值
+val value = FastAnimator.calculatorIntValue(
+    ... // 参数参考calculatorFloatValue
+)
+
+// 计算动画过程对应的Color值
+val value = FastAnimator.calculatorColorValue(
+    ... // 参数参考calculatorFloatValue
+)
 ```
